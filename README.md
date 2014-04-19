@@ -45,6 +45,20 @@ Run the application with
 $ python app.py
 ```
 
+## Screenshots
+
+#### "Login" Page
+
+![](http://i.imgur.com/42qMHwa.png)
+
+#### Upload Page
+
+![](http://i.imgur.com/Ni3el6v.png)
+
+#### Successful Upload
+
+![](http://i.imgur.com/chiRy0a.png)
+
 ## Configuration
 
 You can edit `config.py` to change

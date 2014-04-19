@@ -1,0 +1,106 @@
+<html>
+
+    <head>
+
+        <title>imgup</title>
+
+        <link href='http://fonts.googleapis.com/css?family=Roboto:500,300italic' rel='stylesheet' type='text/css'>
+
+        <style>
+            h1 {
+                font-family: 'Roboto', sans-serif;
+                font-size: 500%;
+            }
+            h3 {
+                font-family: 'Roboto', sans-serif;
+                font-style: italic;
+                font-size: 150%;
+                border-bottom: 1px dashed #999;
+                display: inline;
+            }
+        </style>
+
+    </head>
+
+    <body>
+
+        <div class="previewsContainer" style="display: none;"></div>
+
+        <div id="vertical-center">
+            <center><h1>DRAG IMAGES HERE</h1></center>
+            <center><h3 id="result"></h3></center>
+        </div>
+
+        <script src="//cdnjs.cloudflare.com/ajax/libs/dropzone/3.8.2/dropzone.min.js"></script>
+
+        <script type="text/javascript">
+
+            (function(window, document, undefined) {
+                var css = function(el, prop) {
+                    return window.getComputedStyle ? getComputedStyle(el).getPropertyValue(prop) : el.currentStyle[prop];
+                };
+
+                var addEvent = function(el, type, fn) {
+                    if (el.addEventListener) {
+                        el.addEventListener(type, fn, false);
+                    } else {
+                        el.attachEvent('on' + type, fn);
+                    }
+                };
+
+                window.flexVerticalCenter = function(el) {
+                    var resize = function(el) {
+                        var resizer = function() {
+                            var elHeight = (
+                                    el.offsetHeight
+                                    - parseInt(css(el, 'padding-top'), 10)
+                                    - parseInt(css(el, 'padding-bottom'), 10)
+                                ),
+                                parentHeight = (
+                                    el.parentNode.offsetHeight
+                                    - parseInt(css(el.parentNode, 'padding-top'), 10)
+                                    - parseInt(css(el.parentNode, 'padding-bottom'), 10)
+                                ),
+                                offsetMargin = Math.round(
+                                    (parentHeight - elHeight)
+                                    / 2
+                                )
+                            ;
+
+                            el.style.marginTop = offsetMargin + 'px';
+                        };
+
+                        resizer();
+
+                        addEvent(window, 'resize', resizer);
+                    };
+
+                    if (!el.length) {
+                        el = [el];
+                    }
+
+                    for (var i = 0; i < el.length; i++) {
+                        resize(el[i]);
+                    }
+
+                    // return set of elements
+                    return el;
+                };
+            })(window, document);
+
+            new Dropzone(document.body, {
+                url: "/",
+                paramName: "file",
+                clickable: false,
+                previewsContainer: ".previewsContainer",
+                success: function(file, response) {
+                    document.getElementById('result').innerHTML = location.protocol + '//' + location.host + '/i/' + response;
+                }
+            });
+            
+            window.flexVerticalCenter(document.getElementById('vertical-center'));
+        </script>
+
+    </body>
+
+</html>

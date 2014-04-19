@@ -1,0 +1,90 @@
+<html>
+
+    <head>
+
+        <title>imgup</title>
+        <link href='http://fonts.googleapis.com/css?family=Roboto:500,300italic' rel='stylesheet' type='text/css'>
+        <style>
+            input {
+                font-family: 'Roboto', sans-serif;
+                font-size: 500%;
+                border: 0;
+                outline: 0;
+                background: transparent;
+                border-bottom: 2px solid black;
+                text-align:center;
+            }
+        </style>
+
+    </head>
+
+    <body>
+
+        <div id="vertical-center">
+            <form action="/login" method="POST">
+                <center><input type="password" name="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"/></center>
+            </form>
+        </div>
+
+        <script type="text/javascript">
+
+            (function(window, document, undefined) {
+                var css = function(el, prop) {
+                    return window.getComputedStyle ? getComputedStyle(el).getPropertyValue(prop) : el.currentStyle[prop];
+                };
+
+                var addEvent = function(el, type, fn) {
+                    if (el.addEventListener) {
+                        el.addEventListener(type, fn, false);
+                    } else {
+                        el.attachEvent('on' + type, fn);
+                    }
+                };
+
+                window.flexVerticalCenter = function(el) {
+                    var resize = function(el) {
+                        var resizer = function() {
+                            var elHeight = (
+                                    el.offsetHeight
+                                    - parseInt(css(el, 'padding-top'), 10)
+                                    - parseInt(css(el, 'padding-bottom'), 10)
+                                ),
+                                parentHeight = (
+                                    el.parentNode.offsetHeight
+                                    - parseInt(css(el.parentNode, 'padding-top'), 10)
+                                    - parseInt(css(el.parentNode, 'padding-bottom'), 10)
+                                ),
+                                offsetMargin = Math.round(
+                                    (parentHeight - elHeight)
+                                    / 2
+                                )
+                            ;
+
+                            el.style.marginTop = offsetMargin + 'px';
+                        };
+
+                        resizer();
+
+                        addEvent(window, 'resize', resizer);
+                    };
+
+                    if (!el.length) {
+                        el = [el];
+                    }
+
+                    for (var i = 0; i < el.length; i++) {
+                        resize(el[i]);
+                    }
+
+                    // return set of elements
+                    return el;
+                };
+            })(window, document);
+
+            window.flexVerticalCenter(document.getElementById('vertical-center'));
+
+        </script>
+
+    </body>
+
+</html>
